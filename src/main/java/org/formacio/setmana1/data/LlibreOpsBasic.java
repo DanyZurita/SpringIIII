@@ -88,9 +88,19 @@ public class LlibreOpsBasic {
 	/**
 	 * Retorna quina es la recomanacio per el llibre indicat
 	 * Si el llibre indicat no existeix, retorna null
+	 * @throws LlibreNoExisteixException 
 	 */
-	public Recomanacio recomenacioPer (String isbn) {
-		return null;
+	public Recomanacio recomenacioPer (String isbn){
+		if(this.existeix(isbn)){
+			try {
+				return this.carrega(isbn).getRecomanacio();
+			} catch (LlibreNoExisteixException e) {
+				return null;
+			}
+		}
+		else {
+			return null;
+		}		
 	}
 	
 }
