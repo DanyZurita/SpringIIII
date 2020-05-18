@@ -51,8 +51,16 @@ public class LlibreOpsBasic {
 	 * @param isbn del llibre a eliminar
 	 * @return true si s'ha esborrat el llibre, false si no existia
 	 */
-	public boolean elimina (String isbn) {
-		return true;
+	@Transactional
+	public boolean elimina (String isbn) throws LlibreNoExisteixException  {
+		try {
+			Llibre exemplar = this.carrega(isbn);
+			em.remove(exemplar);
+			return true;
+		}
+		catch (LlibreNoExisteixException e){
+			return false;
+		}
 	}
 	
 	/**
